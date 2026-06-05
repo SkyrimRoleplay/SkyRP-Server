@@ -471,7 +471,7 @@ function registerAll(mp, store, bus) {
             const target = findPlayer(store, args[1]);
             if (!target)
                 return reply(mp, store, userId, 'Usage: /faction slots [name]');
-            const access = (0, mpUtil_1.safeGet)(mp, target.actorId, 'private.frostfallAccess', {});
+            const access = (0, mpUtil_1.safeGet)(mp, target.actorId, 'private.SkyRPAccess', {});
             const assignments = Array.isArray(access.factions) ? access.factions : [];
             if (!assignments.length)
                 return reply(mp, store, userId, `${target.name} has no backend faction slots.`);
@@ -715,7 +715,7 @@ function safeSendCustomPacket(mp, actorOrUserId, packetNameOrJson, data) {
 // ── Script signing helper ─────────────────────────────────────────────────────
 //
 // Signs a JS string so the SkyMP client's ServerJsVerificationService can
-// verify it against the public key advertised in the Frostfall serverinfo.
+// verify it against the public key advertised in the SkyRP serverinfo.
 //
 // sign-gamemode.js lives one level above the gamemode directory.  We load it
 // at RUNTIME via a dynamic path (eval'd require) so webpack cannot statically
@@ -876,7 +876,7 @@ function set(key, value) {
 (__unused_webpack_module, exports, __webpack_require__) {
 
 
-// ── Frostfall Roleplay — Entry Point ─────────────────────────────────────────
+// ── SkyRP Roleplay — Entry Point ─────────────────────────────────────────
 // Wires all systems together and hands control to the SkyMP runtime.
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -934,7 +934,7 @@ const training = __importStar(__webpack_require__(491));
 const commands = __importStar(__webpack_require__(592));
 const CHAT_BROWSER_EVENT = 'cef::chat:send';
 function init(mp) {
-    console.log('[gamemode] Frostfall Roleplay — initializing');
+    console.log('[gamemode] SkyRP Roleplay — initializing');
     // ── Dev probe: set PROBE_GLOBALS=1 to check what SkyMP's Chakra exposes ───
     if (globalThis.process?.env?.PROBE_GLOBALS === '1') {
         (0, probeGlobals_1.runGlobalProbes)().catch((err) => console.error('[probe] unhandled error: ' + String(err?.message ?? err)));
@@ -993,8 +993,8 @@ function init(mp) {
                 }
                 store_1.store.register(userId, actorId, name);
                 store_1.store.update(userId, {
-                    profileId: (0, mpUtil_1.safeGet)(mp, actorId, 'private.frostfallProfileId', null),
-                    discordId: (0, mpUtil_1.safeGet)(mp, actorId, 'private.frostfallDiscordId', null),
+                    profileId: (0, mpUtil_1.safeGet)(mp, actorId, 'private.SkyRPProfileId', null),
+                    discordId: (0, mpUtil_1.safeGet)(mp, actorId, 'private.SkyRPDiscordId', null),
                 });
                 console.log(`[gamemode] ${name} (${userId}) connected`);
                 // Restore per-system state in dependency order
@@ -1044,7 +1044,7 @@ function init(mp) {
             console.error(`[chat] customPacket error: ${err.message}`);
         }
     });
-    console.log('[gamemode] Frostfall Roleplay — ready');
+    console.log('[gamemode] SkyRP Roleplay — ready');
 }
 // ── SkyMP runtime bootstrap ───────────────────────────────────────────────────
 // The server sets globalThis.mp before require()-ing this file and never calls
@@ -2683,7 +2683,7 @@ function refreshBackendMemberships(mp, store, playerId, accessPayload) {
     const player = store.get(playerId);
     if (!player)
         return [];
-    (0, mpUtil_1.safeSet)(mp, player.actorId, 'private.frostfallAccess', accessPayload || { permissions: [], gameFactions: [], factions: [] });
+    (0, mpUtil_1.safeSet)(mp, player.actorId, 'private.SkyRPAccess', accessPayload || { permissions: [], gameFactions: [], factions: [] });
     const memberships = _syncBackendMemberships(mp, player.actorId);
     store.update(playerId, { factions: memberships.map(m => m.factionId) });
     (0, mpUtil_1.safeSendCustomPacket)(mp, player.actorId, 'factionsSync', { memberships });
@@ -2720,7 +2720,7 @@ function onConnect(mp, store, bus, userId) {
 }
 function _syncBackendMemberships(mp, actorId) {
     const current = _getMemberships(mp, actorId);
-    const access = (0, mpUtil_1.safeGet)(mp, actorId, 'private.frostfallAccess', null);
+    const access = (0, mpUtil_1.safeGet)(mp, actorId, 'private.SkyRPAccess', null);
     const backendFactions = Array.isArray(access?.gameFactions) ? access.gameFactions : [];
     if (!backendFactions.length) {
         const localOnly = current.filter(m => m.source !== 'backend');

@@ -24,3 +24,5 @@ signing-private.pem
 data/manifest.json
 server-settings.json
 server-settings-merged.json
+data/manifest.json
+server-settings.json

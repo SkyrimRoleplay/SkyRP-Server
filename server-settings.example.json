@@ -1,39 +1,42 @@
 {
   "dataDir": "data",
-
-  "name": "Your Server Name",
-  "port": 7777,
-  "maxPlayers": 100,
-
-  "offlineMode": false,
-  "master": "https://api.your-backend.example.com",
-  "masterKey": "replace-with-a-strong-random-secret",
-
   "gamemode": "gamemode.js",
-
+  
   "loadOrder": [
-    "Skyrim.esm",
-    "Update.esm",
-    "Dawnguard.esm",
-    "HearthFires.esm",
-    "Dragonborn.esm"
+    "C:/GOG Games/Skyrim Anniversary Edition/Data/Skyrim.esm",
+    "C:/GOG Games/Skyrim Anniversary Edition/Data/Update.esm",
+    "C:/GOG Games/Skyrim Anniversary Edition/Data/Dawnguard.esm",
+    "C:/GOG Games/Skyrim Anniversary Edition/Data/HearthFires.esm",
+    "C:/GOG Games/Skyrim Anniversary Edition/Data/Dragonborn.esm"
   ],
   "archives": ["Skyrim - Misc.bsa"],
-
+  
+  "name": "name here",
+  "port": 7777,
+  "maxPlayers": 800,
+  "offlineMode": false,
+  
+  "master": "https://api.yourwebsitehere.com",
+  "masterKey": "same as .env",
+  "masterApiAuthToken": "same as .env",
+  
   "npcEnabled": false,
   "npcSettings": {},
-
-  "isPapyrusHotReloadEnabled": false,
+  
+  "isPapyrusHotReloadEnabled": true,
   "enableGamemodeDataUpdatesBroadcast": true,
-  "enableConsoleCommandsForAll": true,
-
-  "metricsAuth": { "user": "prometheus", "password": "replace-with-a-strong-password" },
-
+  "enableConsoleCommandsForAll": false,
+  
+  "metricsAuth": {
+    "user": "same as .env",
+    "password": "same as .env"
+  },
+  
   "damageMultFormulaSettings": { "multiplier": 1.0 },
-
+  
   "discordAuth": {
-    "botToken": "Bot YOUR_BOT_TOKEN_HERE",
-    "guildId": "YOUR_GUILD_ID",
-    "banRoleId": "YOUR_BAN_ROLE_ID"
+    "botToken": "insert token here",
+    "guildId": "insert ID here",
+    "banRoleId": "insert ID here"
   }
 }

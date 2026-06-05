@@ -19,3 +19,8 @@ data/Skyrim - Misc.bsa
 /gamemode/node_modules
 signing-private.pem
 /plugin
+
+# Settings
+data/manifest.json
+server-settings.json
+server-settings-merged.json
